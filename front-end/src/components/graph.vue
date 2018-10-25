@@ -5,8 +5,8 @@
 </template>
 
 <script>
-
 import vis from 'vis'
+import axios from 'axios'
 
 var nodes = {}
 var edges = {}
@@ -15,21 +15,10 @@ var data = {}
 var options = {}
 var network = {}
 
-function drawgraph() {
-  nodes = new vis.DataSet([
-    { id: 1, label: 'Pallágyi Kálmán' },
-    { id: 2, label: 'Németh Tamás' },
-    { id: 3, label: 'Kövesi-Nagy Dániel' },
-    { id: 4, label: 'Varga László Gábor' }
-  ])
+function drawgraph(p1, p2) {
+  nodes = new vis.DataSet(p1)
 
-  edges = new vis.DataSet([
-    { from: 1, to: 3 },
-    { from: 1, to: 2 },
-    { from: 2, to: 4 },
-    { from: 1, to: 4 },
-    { from: 3, to: 4 },
-  ])
+  edges = new vis.DataSet(p2)
 
   container = document.getElementById('mynetwork')
   data = { nodes: nodes, edges: edges }
@@ -81,7 +70,7 @@ function drawgraph() {
 
   network = new vis.Network(container, data, options)
 }
-
+let ul = new Map
 export default {
   name: 'graph',
   data: ()=>({
@@ -90,7 +79,31 @@ export default {
       graph: false
   }),
   mounted: () => {
-      drawgraph()
+     axios
+        .get('http://localhost:3000/getdata')
+        .then( resp => {
+            edges = []
+            resp.data.meccsek.forEach( v=> {
+                ul.set(v.vesztett,true)
+                ul.set(v.nyert,true)
+                edges.push({
+                    to: v.vesztett,
+                    from: v.nyert
+                })
+            })
+            nodes = []
+            resp.data.users.forEach( v=> {
+                if (ul.has(v.un)) {
+                    nodes.push( { 
+                        id: v.un,
+                        label: v.nev
+                    } )
+                }  
+            })
+            drawgraph(nodes, edges)
+        })
+        .catch( err => console.log(err))  
+    
   }
 }
 </script>
