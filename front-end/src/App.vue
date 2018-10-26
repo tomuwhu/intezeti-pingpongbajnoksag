@@ -4,17 +4,17 @@
       <hr>
       <div class="left">
       <vs-button 
-        @click="view='erlist'" 
+        @click="setview('erlist')" 
         :disabled="view==='erlist'"
         color="rgb(21, 189, 135)" 
         vs-type="flat" >Eddigi eredményeim</vs-button> -
       <vs-button 
-        @click="view='graph'" 
+        @click="setview('graph')" 
         :disabled="view==='graph'"
         color="rgb(21, 189, 135)" 
         vs-type="flat" >Lejejátszott meccsek gráfja</vs-button> -
       <vs-button 
-        @click="view='ujeredm'" 
+        @click="setview('ujeredm')" 
         :disabled="view==='ujeredm'"
         color="rgb(21, 189, 135)" 
         vs-type="flat" >Új eredmény rögzítése</vs-button>
@@ -34,9 +34,18 @@ export default {
   data: ()=>({
       knev: 'Tamás',
       name: 'Németh Tamás',
-      un:   'tnemeth',
-      view: 'erlist'
-  })
+      un:   'tnemeth'
+  }),
+  methods: {
+    setview(x) {
+      this.$store.state.view = x
+    }
+  },
+  computed: {
+    view() {
+      return this.$store.state.view
+    }
+  }
 }
 </script>
 

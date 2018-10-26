@@ -59,7 +59,7 @@
                 </div>
             </td>
         </table>        
-    </div>    
+    </div>
   </div>
 </template>
 
@@ -78,19 +78,26 @@ export default {
   }),
   methods: {
       chg() {
-          this.kivi = 'Vesztes'
+        this.kivi = 'Vesztes'
       },
       chgv() {
-          this.kivi = 'Győztes'
+        this.kivi = 'Győztes'
       },
       ment() {
-          let tosend 
-          if (this.kivi === 'Győztes') {
-              tosend = { nyert: this.selecteduser ,vesztett: this.username }
-          } else {
-              tosend = { nyert: this.username, vesztett: this.selecteduser }
-          }    
-          console.log( tosend )
+        let tosend 
+        if (this.kivi === 'Győztes') {
+            tosend = { nyert: this.selecteduser ,vesztett: this.username, mikor: this.ma }
+        } else {
+            tosend = { nyert: this.username, vesztett: this.selecteduser, mikor: this.ma}
+        }    
+        axios
+            .post('http://localhost:3000/postdata',tosend)
+            .then( resp => {
+                if (resp.data.affectedRows) {
+                    this.$store.state.view = 'erlist'
+                }
+            })
+            .catch( err => console.error(err)) 
       },
       adatleker() {
         axios

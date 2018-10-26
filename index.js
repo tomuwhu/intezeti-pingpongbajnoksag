@@ -14,6 +14,21 @@ const sql = mysql.createConnection({
 
 app.use(cors())
 
+app.post(/post.*data/, (req, res) => {
+    sql.query(
+            `INSERT INTO meccsek (nyert, vesztett, mikor) 
+             VALUES('${req.body.nyert}', '${req.body.vesztett}', NOW())
+             `,
+            (err, pass) => {
+                if (err) {
+                    res.send(err)
+                } else {
+                    res.send(pass)
+                }
+            } 
+    )
+})
+
 app.get(/get.*data/, (req, res) => {
     let nyt = {}
     sql.query(
