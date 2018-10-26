@@ -7,14 +7,7 @@
 <script>
 import vis from 'vis'
 import axios from 'axios'
-
-var nodes = {}
-var edges = {}
-var container = {}
-var data = {}
-var options = {}
-var network = {}
-
+var nodes, edges, container, data, options, network
 function drawgraph(p1, p2) {
   nodes = new vis.DataSet(p1)
 
@@ -67,16 +60,13 @@ function drawgraph(p1, p2) {
       dashes: true
     }
   }
-
   network = new vis.Network(container, data, options)
 }
 let ul = new Map
 export default {
   name: 'graph',
   data: ()=>({
-      knev: 'Tamás',
-      name: 'Németh Tamás',
-      graph: false
+
   }),
   mounted: () => {
      axios
@@ -86,18 +76,12 @@ export default {
             resp.data.meccsek.forEach( v=> {
                 ul.set(v.vesztett,true)
                 ul.set(v.nyert,true)
-                edges.push({
-                    to: v.vesztett,
-                    from: v.nyert
-                })
+                edges.push({ from: v.nyert, to: v.vesztett })
             })
             nodes = []
             resp.data.users.forEach( v=> {
                 if (ul.has(v.un)) {
-                    nodes.push( { 
-                        id: v.un,
-                        label: v.nev
-                    } )
+                    nodes.push( {  id: v.un, label: v.nev } )
                 }  
             })
             drawgraph(nodes, edges)
