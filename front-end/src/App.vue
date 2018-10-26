@@ -6,23 +6,22 @@
       <vs-button 
         @click="view='erlist'" 
         :disabled="view==='erlist'"
-        color="rgb(11, 189, 135)" 
+        color="rgb(21, 189, 135)" 
         vs-type="flat" >Eddigi eredményeim</vs-button> -
       <vs-button 
         @click="view='graph'" 
         :disabled="view==='graph'"
-        color="rgb(11, 189, 135)" 
+        color="rgb(21, 189, 135)" 
         vs-type="flat" >Lejejátszott meccsek gráfja</vs-button> -
       <vs-button 
         @click="view='ujeredm'" 
         :disabled="view==='ujeredm'"
-        color="rgb(11, 189, 135)" 
-        vs-type="flat" >Új eredmény felvitele</vs-button>
+        color="rgb(21, 189, 135)" 
+        vs-type="flat" >Új eredmény rögzítése</vs-button>
       </div>
       <hr><br>
-      <ujeredm v-if="view==='ujeredm'"/>
+      <ujeredm :username="un" v-if="view==='ujeredm'"/>
       <graph v-if="view==='graph'"/>
-
   </div>
 </template>
 
@@ -35,6 +34,7 @@ export default {
   data: ()=>({
       knev: 'Tamás',
       name: 'Németh Tamás',
+      un:   'tnemeth',
       view: 'erlist'
   })
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="center">
     <br>
-    <h2>Új eredmény bevitele</h2>
+    <h2>Új eredmény rögzítése - {{ma}}</h2>
     <div 
         v-if="adatmegvan"
         id="seldiv">
@@ -15,7 +15,7 @@
                         v-model='selecteduser'
                         :vs-success="selecteduser.length>3"
                         :vs-label="kivi + ' felvitele'"
-                        :vs-success-text="kivi + ' rögzítve'">
+                        :vs-success-text="kivi + ' kiválasztva'">
                         <vs-select-item 
                             :key="index" 
                             :vs-value="item.un"
@@ -23,7 +23,9 @@
                             v-for="item,index in userlist" />
                     </vs-select>
                     <br>
-                    <vs-button :disabled="!(selecteduser.length>3)">Mentés</vs-button>
+                    <vs-button 
+                        :disabled="!(selecteduser.length>3)"
+                        @click="ment()">Mentés</vs-button>
                 </div>
             </td>
             <td class="seltdc">
@@ -32,7 +34,7 @@
             <td class="seltdr">
                 <div v-if="kivi==='Győztes'">
                     <div class="justify">
-                        Én győztem, és tudom, hogy a vesztesnek kell felvinnie az eredményt, 
+                        Én ({{user.nev}}) győztem, és tudom, hogy a vesztesnek kell felvinnie az eredményt, 
                         de már többször írtam neki és még mindig nem vitte fel,
                         pedig tudomásul vette, hogy vesztett, ide a rozsdás bököt!
                     </div>
@@ -65,11 +67,14 @@
 import axios from 'axios'
 export default {
   name: 'ujeredm',
+  props: ['username'],
   data: ()=>({
+      user: {},
       userlist: [],
       selecteduser: '',
       adatmegvan: false,
-      kivi: 'Győztes'
+      kivi: 'Győztes',
+      ma: (new Date).toLocaleDateString()
   }),
   methods: {
       chg() {
@@ -78,11 +83,21 @@ export default {
       chgv() {
           this.kivi = 'Győztes'
       },
+      ment() {
+          let tosend 
+          if (this.kivi === 'Győztes') {
+              tosend = { nyert: this.selecteduser ,vesztett: this.username }
+          } else {
+              tosend = { nyert: this.username, vesztett: this.selecteduser }
+          }    
+          console.log( tosend )
+      },
       adatleker() {
         axios
             .get('http://localhost:3000/getdata')
             .then( resp => {
-                this.userlist = resp.data.users
+                this.user=resp.data.users.filter( v => v.un===this.username )[0]
+                this.userlist = resp.data.users.filter( v => v.un!==this.username )              
                 this.adatmegvan = true
             })
             .catch( err => console.error(err)) 
