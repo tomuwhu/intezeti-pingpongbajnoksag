@@ -10,12 +10,9 @@ import axios from 'axios'
 var nodes, edges, container, data, options, network
 function drawgraph(p1, p2) {
   nodes = new vis.DataSet(p1)
-
   edges = new vis.DataSet(p2)
-
   container = document.getElementById('mynetwork')
   data = { nodes: nodes, edges: edges }
-
   options = {
     nodes: {
       shape: 'box',
@@ -87,7 +84,6 @@ export default {
             drawgraph(nodes, edges)
         })
         .catch( err => console.log(err))  
-    
   }
 }
 </script>

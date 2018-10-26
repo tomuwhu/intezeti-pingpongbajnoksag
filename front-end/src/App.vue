@@ -1,23 +1,25 @@
 <template  lang="html">
   <div id="app">
       <h1 id="h1_1">Üdvözöllek újra az intézeti ping-pong bajonokságban!</h1>
-      <vs-button @click="graph=!graph"><span v-html="graph?'Diagram ki':'Diagram be'" /></vs-button>
+      <vs-button @click="view='graph'" :disabled="view==='graph'" >Jejátszott meccsek</vs-button> -
+      <vs-button @click="view='ujeredm'" :disabled="view==='ujeredm'" >Űj eredmény felvitele</vs-button>
       <br><br>
-      <graph v-if="graph"/>
+      <ujeredm v-if="view==='ujeredm'"/>
+      <graph v-if="view==='graph'"/>
+
   </div>
 </template>
 
 <script>
 import graph from './components/graph.vue'
+import ujeredm from './components/ujeredm.vue'
 export default {
   name: 'app',
-  components: {
-    graph
-  },
+  components: { graph, ujeredm },
   data: ()=>({
       knev: 'Tamás',
       name: 'Németh Tamás',
-      graph: false
+      view: ''
   })
 }
 </script>

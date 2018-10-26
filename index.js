@@ -17,7 +17,7 @@ app.use(cors())
 app.get(/get.*data/, (req, res) => {
     let nyt = {}
     sql.query(
-        `SELECT * FROM user `,
+        `SELECT * FROM user ORDER BY nev`,
         (err, users) => {
             if (err) {
                 res.send(err)
