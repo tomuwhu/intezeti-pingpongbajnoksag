@@ -1,19 +1,19 @@
 <template>
   <div class="center">
     <br>
-    <h2>Eredményeid listája</h2>
+    <h2>Eredmények</h2>
     <br><br>
     <table class="kulso">
         <tr>
-            <th>
-                Nyert meccsek listája
+            <th class="nyert">
+                <h3>Nyert meccsek listája</h3>
             </th>
-            <th>
-                Vesztett meccsek listája
+            <th class="vesztett">
+                <h3>Vesztett meccsek listája</h3>
             </th>
         </tr>
         <tr>
-            <td class="kulso">       
+            <td class="kulso nyert">       
                 <table class="belso">     
                 <tr v-for="meccs in nyertmeccsek">
                     <td class="belso bal">{{meccs.ellenfel}}</td>
@@ -21,7 +21,7 @@
                 </tr>
                 </table>
             </td>
-            <td class="kulso">       
+            <td class="kulso vesztett">       
                 <table class="belso">     
                 <tr v-for="meccs in vesztettmeccsek">
                     <td class="belso bal">{{meccs.ellenfel}}</td>
@@ -107,5 +107,11 @@ td.bal {
 }
 td.jobb {
     text-align: right;
+}
+td.nyert, th.nyert {
+    color:rgb(142, 233, 202);
+}
+td.vesztett, th.vesztett {
+    color:rgb(233, 156, 142);
 }
 </style>

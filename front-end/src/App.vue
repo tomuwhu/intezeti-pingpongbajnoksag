@@ -7,7 +7,7 @@
         @click="setview('erlist')" 
         :disabled="view==='erlist'"
         color="rgb(21, 189, 135)" 
-        vs-type="flat" >Eddigi eredményeim</vs-button> -
+        vs-type="flat" >Eredmények</vs-button> -
       <vs-button 
         @click="setview('graph')" 
         :disabled="view==='graph'"
