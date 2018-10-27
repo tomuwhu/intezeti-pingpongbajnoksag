@@ -20,17 +20,19 @@
         vs-type="flat" >Új eredmény rögzítése</vs-button>
       </div>
       <hr><br>
+      <erlist  :username="un" v-if="view==='erlist'" />
       <ujeredm :username="un" v-if="view==='ujeredm'"/>
-      <graph v-if="view==='graph'"/>
+      <graph                  v-if="view==='graph'"/>
   </div>
 </template>
 
 <script>
+import erlist from './components/erlist.vue'
 import graph from './components/graph.vue'
 import ujeredm from './components/ujeredm.vue'
 export default {
   name: 'app',
-  components: { graph, ujeredm },
+  components: { erlist, graph, ujeredm },
   data: ()=>({
       knev: 'Tamás',
       name: 'Németh Tamás',
