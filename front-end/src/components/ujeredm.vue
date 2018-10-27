@@ -101,7 +101,7 @@ export default {
       },
       adatleker() {
         axios
-            .get('http://localhost:3000/getdata')
+            .get('http://localhost:3000/getuserdata')
             .then( resp => {
                 this.user=resp.data.users.filter( v => v.un===this.username )[0]
                 this.userlist = resp.data.users.filter( v => v.un!==this.username )              

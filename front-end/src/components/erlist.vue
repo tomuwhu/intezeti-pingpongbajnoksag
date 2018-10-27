@@ -2,6 +2,7 @@
   <div class="center">
     <br>
     <h2>Eredményeid listája</h2>
+    {{meccsek}}
   </div>
 </template>
 
@@ -12,17 +13,22 @@ export default {
   props: ['username'],
   data: ()=>({
       user: {},
-      userlist: []
+      userlist: [],
+      meccsek: []
   }),
   methods: {
       adatleker() {
         axios
-            .get('http://localhost:3000/getdata')
+            .get('http://localhost:3000/getalldata')
             .then( resp => {
-                console.log(this.username)
-                
-                //console.log(resp.data.meccsek.filter(v => v.nyert === this.username))
-                
+                this.meccsek =
+                    resp.data
+                        .meccsek
+                        .filter( v => 
+                            v.nyert === this.username
+                            ||
+                            v.vesztett === this.username
+                        )
             })
             .catch( err => console.error(err)) 
       }

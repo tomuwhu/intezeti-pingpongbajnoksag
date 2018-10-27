@@ -29,7 +29,51 @@ app.post(/post.*data/, (req, res) => {
     )
 })
 
-app.get(/get.*data/, (req, res) => {
+app.get(/getalldata/, (req, res) => {
+    let nyt = {}
+    sql.query(
+        `SELECT * FROM user ORDER BY nev`,
+        (err, users) => {
+            if (err) {
+                res.send(err)
+            } else {
+                sql.query(
+                    `SELECT     *
+                     FROM       meccsek 
+                     ORDER BY   mikor`,
+                    (err, meccsek) => {
+                        if (err) {
+                            res.send(err)
+                        } else {
+                            res.send({
+                                users,
+                                meccsek
+                            })
+                        }
+                    })
+            }
+
+        }
+    )
+})
+
+app.get(/getuserdata/, (req, res) => {
+    let nyt = {}
+    sql.query(
+        `SELECT * FROM user ORDER BY nev`,
+        (err, users) => {
+            if (err) {
+                res.send(err)
+            } else {
+                res.send({
+                    users
+                })
+            }
+        }
+    )
+})
+
+app.get(/getgraphdata/, (req, res) => {
     let nyt = {}
     sql.query(
         `SELECT * FROM user ORDER BY nev`,

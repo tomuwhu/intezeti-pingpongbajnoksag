@@ -67,7 +67,7 @@ export default {
   }),
   mounted: () => {
      axios
-        .get('http://localhost:3000/getdata')
+        .get('http://localhost:3000/getgraphdata')
         .then( resp => {
             edges = []
             resp.data.meccsek.forEach( v=> {
