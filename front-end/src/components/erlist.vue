@@ -14,16 +14,18 @@
             <td class="kulso nyert">       
                 <table class="belso">     
                 <tr v-for="meccs in nyertmeccsek">
-                    <td class="belso bal">{{meccs.ellenfel}}</td>
-                    <td class="belso jobb">{{meccs.mikor}}</td>
+                    <td class="belso bal">{{meccs.mikor}}</td>
+                    <td> - </td>
+                    <td class="belso jobb"> &nbsp; {{meccs.ellenfel}}</td>
                 </tr>
                 </table>
             </td>
             <td class="kulso vesztett">       
                 <table class="belso">     
                 <tr v-for="meccs in vesztettmeccsek">
-                    <td class="belso bal">{{meccs.ellenfel}}</td>
-                    <td class="belso jobb">{{meccs.mikor}}</td>
+                    <td class="belso bal">{{meccs.mikor}}</td>
+                    <td> - </td>
+                    <td class="belso jobb"> &nbsp; {{meccs.ellenfel}}</td>
                 </tr>
                 </table>
             </td>
