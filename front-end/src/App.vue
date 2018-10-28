@@ -9,6 +9,11 @@
         color="rgb(21, 189, 135)" 
         vs-type="flat" >Eredmények</vs-button> -
       <vs-button 
+        @click="setview('rank')" 
+        :disabled="view==='rank'"
+        color="rgb(21, 189, 135)" 
+        vs-type="flat" >Ranglista</vs-button> -  
+      <vs-button 
         @click="setview('graph')" 
         :disabled="view==='graph'"
         color="rgb(21, 189, 135)" 
@@ -21,6 +26,7 @@
       </div>
       <hr><br>
       <erlist  :username="un" v-if="view==='erlist'" />
+      <rank    :username="un" v-if="view==='rank'" />
       <ujeredm :username="un" v-if="view==='ujeredm'"/>
       <graph                  v-if="view==='graph'"/>
   </div>
@@ -28,11 +34,12 @@
 
 <script>
 import erlist from './components/erlist.vue'
+import rank from './components/rank.vue'
 import graph from './components/graph.vue'
 import ujeredm from './components/ujeredm.vue'
 export default {
   name: 'app',
-  components: { erlist, graph, ujeredm },
+  components: { erlist, rank, graph, ujeredm },
   data: ()=>({
       knev: 'Tamás',
       name: 'Németh Tamás',
