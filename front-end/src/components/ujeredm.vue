@@ -1,6 +1,5 @@
 <template>
   <div class="center">
-    <br>
     <h2>Új eredmény rögzítése - {{ma}}</h2>
     <div 
         v-if="adatmegvan"
@@ -24,7 +23,9 @@
                     </vs-select>
                     <br>
                     <vs-button 
+                        vs-type="gradient"
                         :disabled="!(selecteduser.length>3)"
+                        color="success"
                         @click="ment()">Mentés</vs-button>
                 </div>
             </td>
@@ -41,7 +42,7 @@
                     <br><br>
                     <div class="center">
                         <vs-button 
-                            color="danger"
+                            color="dark"
                             @click="chg()">Tuti!</vs-button>
                     </div>
                 </div>
@@ -53,7 +54,7 @@
                     <br><br>
                     <div class="center">
                         <vs-button 
-                            color="success"
+                            color="dark"
                             @click="chgv()">Bocsi</vs-button>
                     </div>
                 </div>
@@ -128,12 +129,11 @@ td.seltdr {
     text-align: justify;
     border-radius: 10px;
     background: black;
-    box-shadow: 1px 1px 4px black;
+    box-shadow: 0px 0px 6px rgb(255, 255, 255);
 }
 h2 {
     text-align: center;
     border-radius: 10px;
-    margin:20px;
     padding:10px;
     color:rgb(47, 41, 41);
     background: rgb(204, 204, 199);
@@ -157,10 +157,10 @@ div.justify {
 }
 #seldiv {   
     text-align:left;
-    background-color: rgb(248, 248, 248);
-    border-radius: 20px;
+    background-color: rgb(27, 27, 27);
+    border-radius: 10px;
     box-shadow: 0px 0px 6px white;
-    margin:20px;
+    margin-top:20px;
     padding: 20px;
 }
 .sel {

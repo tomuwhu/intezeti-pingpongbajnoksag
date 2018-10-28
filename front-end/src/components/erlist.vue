@@ -1,8 +1,6 @@
 <template>
   <div class="center">
-    <br>
     <h2>Eredmények</h2>
-    <br><br>
     <table class="kulso">
         <tr>
             <th class="nyert">
@@ -41,7 +39,7 @@ export default {
   props: ['username'],
   data: ()=>({
       user: {},
-      userlist: [],
+      userlist: {},
       meccsek: []
   }),
   methods: {
@@ -51,7 +49,10 @@ export default {
             .then( resp => {
                 this.meccsek =
                         resp.data
-                            .meccsek 
+                            .meccsek
+                resp.data
+                    .users
+                    .forEach( v => this.userlist[v.un] = v.nev  )                           
             })
             .catch( err => console.error(err)) 
       }
@@ -65,14 +66,20 @@ export default {
                     .filter( v => 
                         v.nyert === this.username
                     )
-                    .map (v => ({ellenfel: v. vesztett, mikor: (new Date(v.mikor)).toLocaleDateString()}) ) 
+                    .map (v => ( { 
+                        ellenfel: this.userlist[v.vesztett], 
+                        mikor: (new Date(v.mikor)).toLocaleDateString()
+                    } ) ) 
       },
       vesztettmeccsek() {
         return this .meccsek
                     .filter( v =>           
                         v.vesztett === this.username
                     )
-                    .map (v => ({ellenfel: v. nyert, mikor: (new Date(v.mikor)).toLocaleDateString()}) )
+                    .map ( v => ({
+                        ellenfel: this.userlist[v.nyert], 
+                        mikor: (new Date(v.mikor)).toLocaleDateString()
+                    }) )
       }
   }
 }
@@ -113,5 +120,14 @@ td.nyert, th.nyert {
 }
 td.vesztett, th.vesztett {
     color:rgb(233, 156, 142);
+}
+h2 {
+    text-align: center;
+    border-radius: 10px;
+    padding:10px;
+    color:rgb(47, 41, 41);
+    background: rgb(204, 204, 199);
+    box-shadow: 1px 1px 7px rgb(255, 255, 255);
+    text-shadow: 1px 1px 5px rgb(109, 107, 107);
 }
 </style>

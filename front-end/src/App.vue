@@ -1,6 +1,6 @@
 <template  lang="html">
   <div id="app">
-      <h1 id="h1_1">Üdvözöllek újra az intézeti ping-pong bajonokságban!</h1>
+      <h3 id="h3">Üdvözöllek újra az intézeti pingpong-bajonokságban!</h3>
       <hr>
       <div class="left">
       <vs-button 
@@ -12,7 +12,7 @@
         @click="setview('graph')" 
         :disabled="view==='graph'"
         color="rgb(21, 189, 135)" 
-        vs-type="flat" >Lejejátszott meccsek gráfja</vs-button> -
+        vs-type="flat" >Eredménygráf</vs-button> -
       <vs-button 
         @click="setview('ujeredm')" 
         :disabled="view==='ujeredm'"
@@ -60,12 +60,12 @@ body {
   font-family: 'Niramit', sans-serif;
   margin:10px;
 }
-#h1_1 {
+#h3 {
   text-shadow: 0px 0px 3px white;
-  margin:30px;
+  margin-bottom:10px;
 }
 #app {
-  margin:20px;
+  margin:10px;
   text-align: center;
 }
 div.left {

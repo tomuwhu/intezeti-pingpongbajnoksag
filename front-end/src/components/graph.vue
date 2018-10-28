@@ -1,5 +1,7 @@
 <template>
   <div>
+    <h2>Eredménygráf</h2> 
+    <br>
     <div id="mynetwork"></div>
   </div>
 </template>
@@ -90,11 +92,20 @@ export default {
 
 <style scoped>
 #mynetwork {
-  width: 90%;
+  width: 100%;
   height: 600px;
   background: rgba(30,40,60,0.2);
   border-radius: 20px;
   box-shadow: 1px 1px 6px #effeed;
   margin: 0 auto;
+}
+h2 {
+    text-align: center;
+    border-radius: 10px;
+    padding:10px;
+    color:rgb(47, 41, 41);
+    background: rgb(204, 204, 199);
+    box-shadow: 1px 1px 7px rgb(255, 255, 255);
+    text-shadow: 1px 1px 5px rgb(109, 107, 107);
 }
 </style>
