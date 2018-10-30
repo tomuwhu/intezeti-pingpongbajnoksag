@@ -113,9 +113,17 @@ td.belso {
 }
 td.bal {
     text-align: left;
+    background-color: rgba(20,20,20,1);
+    border-radius: 11px;
+    padding-left: 10px;
+    box-shadow:0px 0px 3px white;
 }
 td.jobb {
     text-align: right;
+    background-color: rgba(20,20,20,1);
+    border-radius: 11px;
+    padding-right:10px;    
+    box-shadow:0px 0px 3px white;
 }
 td.nyert, th.nyert {
     color:rgb(142, 233, 202);
