@@ -31,8 +31,8 @@ function drawgraph(p1, p2) {
         vadjust: 0
       },
       color: {
-        border: '#2B7CE9',
-        background: '#97C2FC',
+        border: '#C01C59',
+        background: '#17B27C',
         highlight: {
           border: '#2B7CE9',
           background: '#D2E5FF'

@@ -1,13 +1,13 @@
 <template  lang="html">
   <div id="app">
-      <h3 id="h3">Üdvözöllek újra az intézeti pingpong-bajonokságban!</h3>
+      <h3 id="h3">Kedves <b>{{knev}}</b>, üdvözöllek az intézeti pingpong-bajonokságban!</h3>
       <hr>
       <div class="left">
       <vs-button 
         @click="setview('erlist')" 
         :disabled="view==='erlist'"
         color="rgb(21, 189, 135)" 
-        vs-type="flat" >Eredmények</vs-button> -
+        vs-type="flat" >Eredményeim</vs-button> -
       <vs-button 
         @click="setview('rank')" 
         :disabled="view==='rank'"
@@ -60,6 +60,9 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Niramit:400,400i,700,700i&subset=latin-ext');
+b {
+  color:rgb(142, 233, 202);
+}
 body {
   background:black;
   color:rgb(207, 198, 186);

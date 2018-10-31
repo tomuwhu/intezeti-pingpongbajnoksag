@@ -1,6 +1,6 @@
 <template>
   <div class="center">
-    <h2>Eredmények</h2>
+    <h2>Eredményeim</h2>
     <table class="kulso">
         <tr>
             <th class="nyert">
