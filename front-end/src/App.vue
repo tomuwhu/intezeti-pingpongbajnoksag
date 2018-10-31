@@ -21,8 +21,8 @@
       <vs-button 
         @click="setview('matrix')" 
         :disabled="view==='matrix'"
-        color="rgb(71, 119, 185)" 
-        vs-type="flat" >Teljes mátrix</vs-button> - 
+        color="rgb(251, 119, 185)" 
+        vs-type="flat" >Becsült végkifejlet</vs-button> - 
       <vs-button 
         @click="setview('graph')" 
         :disabled="view==='graph'"
