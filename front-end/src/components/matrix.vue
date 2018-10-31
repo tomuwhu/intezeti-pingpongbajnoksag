@@ -1,29 +1,14 @@
 <template>
   <div class="center">
-    <h2>Ranglista - <a href="https://hu.wikipedia.org/wiki/PageRank" target="_blank">PageRank</a></h2>
-    <div class="center">
-        <table>
-            <tr>
-                <th>Helyezés</th>
-                <th>Név</th>
-                <th>PageRank</th>
-            </tr> 
-            <tr v-for="(row,key) in rank">
-                <td class="bal">{{key+1}}.</td>
-                <td class="bal">{{row.jn}}</td>
-                <td class="jobb">{{(100*row.rank).toFixed(0)}}<span class="grayspan">/100</span></td>
-            </tr>
-        </table>
-    </div>    
+    <h2>Teljes mátrix</h2>
   </div>
 </template>
 
 <script>
-var graph = require('ngraph.graph')()
-var pagerank = require('ngraph.pagerank')
+
 import axios from 'axios'
 export default {
-  name: 'rank',
+  name: 'matrix',
   props: ['username'],
   data: ()=>({
       user: {},
@@ -38,16 +23,9 @@ export default {
             .then( resp => {
                 this.meccsek = resp .data
                                     .meccsek
-                this.meccsek.forEach( v=> {
-                    graph.addLink(v.vesztett,v.nyert)
-                })
                 resp.data
                     .users
-                    .forEach( v => this.userlist[v.un] = v.nev  )
-                this.rank = Object
-                                .entries(pagerank(graph))
-                                .map( v => ({un:v[0], jn: this.userlist[v[0]], rank: v[1]}) )
-                                .sort( (a, b) => b.rank - a.rank )                  
+                    .forEach( v => this.userlist[v.un] = v.nev  )    
             })
             .catch( err => console.error(err)) 
       }

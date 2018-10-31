@@ -10,6 +10,7 @@
     "@dagrejs/graphlib": "^2.1.4",
     "material-icons": "^0.2.3",
     "ngraph.graph": "0.0.14",
+    "ngraph.hits": "^0.1.1",
     "ngraph.pagerank": "^0.1.4",
     "vis": "^4.21.0",
     "vue": "^2.5.17",

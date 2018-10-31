@@ -1,17 +1,19 @@
 <template>
   <div class="center">
-    <h2>Ranglista - <a href="https://hu.wikipedia.org/wiki/PageRank" target="_blank">PageRank</a></h2>
+    <h2>Ranglista - <a href="https://hu.wikipedia.org/wiki/HITS" target="_blank">HITS</a></h2>
     <div class="center">
         <table>
             <tr>
                 <th>Helyezés</th>
                 <th>Név</th>
-                <th>PageRank</th>
-            </tr> 
+                <th>Authority</th>
+                <th>Hub</th>
+            </tr>    
             <tr v-for="(row,key) in rank">
                 <td class="bal">{{key+1}}.</td>
                 <td class="bal">{{row.jn}}</td>
-                <td class="jobb">{{(100*row.rank).toFixed(0)}}<span class="grayspan">/100</span></td>
+                <td class="jobb 'x'+row.hub">{{(10000*row.rank).toFixed(0)}}<span class="grayspan">/10<sup>5</sup></span></td>
+                <td class="jobb 'x'+row.hub">{{(10000*row.hub).toFixed(0)}}<span class="grayspan">/10<sup>5</sup></span></td>            
             </tr>
         </table>
     </div>    
@@ -20,7 +22,7 @@
 
 <script>
 var graph = require('ngraph.graph')()
-var pagerank = require('ngraph.pagerank')
+var hits = require('ngraph.hits')
 import axios from 'axios'
 export default {
   name: 'rank',
@@ -45,9 +47,9 @@ export default {
                     .users
                     .forEach( v => this.userlist[v.un] = v.nev  )
                 this.rank = Object
-                                .entries(pagerank(graph))
-                                .map( v => ({un:v[0], jn: this.userlist[v[0]], rank: v[1]}) )
-                                .sort( (a, b) => b.rank - a.rank )                  
+                                .entries(hits(graph))
+                                .map( v => ({un:v[0], jn: this.userlist[v[0]], rank: v[1].authority, hub: v[1].hub}) )
+                                .sort( (a, b) => b.rank - a.rank )                   
             })
             .catch( err => console.error(err)) 
       }

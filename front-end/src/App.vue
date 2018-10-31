@@ -11,22 +11,34 @@
       <vs-button 
         @click="setview('rank')" 
         :disabled="view==='rank'"
-        color="rgb(21, 189, 135)" 
-        vs-type="flat" >Ranglista</vs-button> -  
+        color="rgb(121, 189, 135)" 
+        vs-type="flat" >Ranglista (PageRank)</vs-button> -  
+      <vs-button 
+        @click="setview('rankh')" 
+        :disabled="view==='rankh'"
+        color="rgb(71, 119, 185)" 
+        vs-type="flat" >Ranglista (HITS)</vs-button> - 
+      <vs-button 
+        @click="setview('matrix')" 
+        :disabled="view==='matrix'"
+        color="rgb(71, 119, 185)" 
+        vs-type="flat" >Teljes mátrix</vs-button> - 
       <vs-button 
         @click="setview('graph')" 
         :disabled="view==='graph'"
-        color="rgb(21, 189, 135)" 
+        color="rgb(21, 189, 185)" 
         vs-type="flat" >Eredménygráf</vs-button> -
       <vs-button 
         @click="setview('ujeredm')" 
         :disabled="view==='ujeredm'"
-        color="rgb(21, 189, 135)" 
+        color="rgb(221, 189, 135)" 
         vs-type="flat" >Új eredmény rögzítése</vs-button>
       </div>
       <hr><br>
       <erlist  :username="un" v-if="view==='erlist'" />
       <rank    :username="un" v-if="view==='rank'" />
+      <rankh   :username="un" v-if="view==='rankh'" />
+      <matrix  :username="un" v-if="view==='matrix'" />      
       <ujeredm :username="un" v-if="view==='ujeredm'"/>
       <graph                  v-if="view==='graph'"/>
   </div>
@@ -35,11 +47,13 @@
 <script>
 import erlist from './components/erlist.vue'
 import rank from './components/rank.vue'
+import rankh from './components/rankh.vue'
+import matrix from './components/matrix.vue'
 import graph from './components/graph.vue'
 import ujeredm from './components/ujeredm.vue'
 export default {
   name: 'app',
-  components: { erlist, rank, graph, ujeredm },
+  components: { erlist, rank, rankh, matrix, graph, ujeredm },
   data: ()=>({
       knev: 'Tamás',
       name: 'Németh Tamás',
