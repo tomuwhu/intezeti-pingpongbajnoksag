@@ -143,7 +143,7 @@ div.center {
 table {
     padding: 0 auto;
     width:100%;
-    border-spacing: 20px;
+    border-spacing: 6px;
     border-collapse: separate;
 }
 .grayspan {
