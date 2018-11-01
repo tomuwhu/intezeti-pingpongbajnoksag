@@ -2,8 +2,10 @@
   <div class="center">
     <h2>Becsült végkifejlet</h2>
     <table>
-        <tr v-for="(row,key) in rankarray">   
-            <td>{{row}}</td>
+        <tr v-for="(row,key) in rankarray">
+            <td class="bal">{{key+1}}.</td>   
+            <td class="bal">{{userlist[row.un]}}</td>
+            <td class="jobb">{{(100*row.rank).toFixed(0)}}</td>
         </tr>
     </table>        
   </div>
@@ -12,7 +14,6 @@
 <script>
 var graph = require('ngraph.graph')()
 var pagerank = require('ngraph.pagerank')
-var hits = require('ngraph.hits')
 import axios from 'axios'
 export default {
   name: 'matrix',
@@ -45,17 +46,11 @@ export default {
                 let prank = Object
                                 .entries(pagerank(graph))
                                 .map( v => ({un:v[0], jn: this.userlist[v[0]], rank: v[1]}) )
-                let hrank = Object
-                                .entries(hits(graph))
-                                .map( v => ({un:v[0], jn: this.userlist[v[0]], rank: v[1].hub}) )
+
                 let prankmap = new Map
                 prank.forEach( v=> {
                     prankmap.set(v.un,v.rank)
-                })
-                let hrankmap = new Map
-                hrank.forEach( v=> {
-                    hrankmap.set(v.un,v.rank)
-                })                       
+                })                 
                 this.meccsek.forEach( v=> {
                     this.matrix.get(v.nyert).set(v.vesztett,-1)
                     this.matrix.get(v.vesztett).set(v.nyert,1)
@@ -66,19 +61,17 @@ export default {
                         .users.forEach( q => {
                             if (!this.matrix.get(p.un).has(q.un)) {
                                 if (p.un!==q.un)
-                                    this.matrix.get(p.un).set(q.un,prankmap.get(p.un)-prankmap.get(q.un)>0?-1:1)
+                                    this.matrix.get(p.un).set(q.un,prankmap.get(p.un)-prankmap.get(q.un)>0?-0.5:0.5)
                                 else     
                                     this.matrix.get(p.un).set(q.un,0)
                             }
                         } )
                     })
-                let ossz
-                console.log(hrankmap)
-                
+                let ossz               
                 this.matrix.forEach( (v,k) => {
                     ossz = 0
                     this.matrix.get(k).forEach( v => ossz += v)
-                    this.rank.set(k,ossz+hrankmap.get(k))
+                    this.rank.set(k,ossz+prankmap.get(k))
                 })
                 let rv = []
                 this.rank.forEach( (v,k) => {
