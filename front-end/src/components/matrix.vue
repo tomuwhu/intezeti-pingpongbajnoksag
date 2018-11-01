@@ -1,11 +1,23 @@
 <template>
   <div class="center">
-    <h2>Becsült végkifejlet</h2>
-    <table>
+    <h2>Ranglista - <a href="#" @click="def=!def">Eredménymátrix-összeg PageRank alapú becsléssel</a></h2>
+    <div v-if="def">
+        <br>
+        <pre>
+            A módszer lényege a hagyományos eredménymátrix-alapú számítási módszer kiegészítése azzal, 
+            hogy a le nem játszott meccsek kimenetelét a PageRank pontszám alapján becsli.
+        </pre>    
+    </div>    
+    <table v-if="!def">
+        <tr>
+                <th>Helyezés</th>
+                <th>Név</th>
+                <th>Becsült pontszám-arány</th>
+            </tr>
         <tr v-for="(row,key) in rankarray">
             <td class="bal">{{key+1}}.</td>   
             <td class="bal">{{userlist[row.un]}}</td>
-            <td class="jobb">{{(100*row.rank).toFixed(0)}}</td>
+            <td class="jobb">{{(1000*row.rank).toFixed(0)}}<span class="grayspan"> * 10<sup>-3</sup></span></td>
         </tr>
     </table>        
   </div>
@@ -24,7 +36,8 @@ export default {
       meccsek: [],
       rank: new Map,
       rankarray: [],
-      matrix: new Map
+      matrix: new Map,
+      def: false
   }),
   methods: {
       adatleker() {
@@ -55,19 +68,20 @@ export default {
                     this.matrix.get(v.nyert).set(v.vesztett,-1)
                     this.matrix.get(v.vesztett).set(v.nyert,1)
                 } )
+                let diff
                 resp.data
                     .users.forEach( p => {
                         resp.data
                         .users.forEach( q => {
                             if (!this.matrix.get(p.un).has(q.un)) {
-                                if (p.un!==q.un)
-                                    this.matrix.get(p.un).set(q.un,prankmap.get(p.un)-prankmap.get(q.un)>0?-0.5:0.5)
-                                else     
+                                if (p.un!==q.un) {
+                                    this.matrix.get(p.un).set(q.un,prankmap.get(p.un)-prankmap.get(q.un)>0?-0.2:0.2)
+                                } else     
                                     this.matrix.get(p.un).set(q.un,0)
-                            }
+                            }                            
                         } )
                     })
-                let ossz               
+                let ossz, min = Infinity, fsum=0               
                 this.matrix.forEach( (v,k) => {
                     ossz = 0
                     this.matrix.get(k).forEach( v => ossz += v)
@@ -75,9 +89,15 @@ export default {
                 })
                 let rv = []
                 this.rank.forEach( (v,k) => {
+                    if (v<min) min = v
                     rv.push({un:k, rank:v})                      
                 })
-                this.rankarray = rv .filter( v=> v.rank)
+                rv = rv.map( v => ({un: v.un, rank: v.rank - min}) )
+                rv.forEach( v => {                    
+                    if (v.rank) fsum += v.rank
+                })               
+                this.rankarray = rv .filter( v => v.rank)
+                                    .map ( v => ({un: v.un, rank: v.rank / fsum}) )
                                     .sort( (a,b) => b.rank-a.rank )         
             })
             .catch( err => console.error(err)) 

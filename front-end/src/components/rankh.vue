@@ -12,8 +12,8 @@
             <tr v-for="(row,key) in rank">
                 <td class="bal">{{key+1}}.</td>
                 <td class="bal">{{row.jn}}</td>
-                <td class="jobb 'x'+row.rank">{{(10000*row.rank).toFixed(0)}}<span class="grayspan">/10<sup>5</sup></span></td>
-                <td class="jobb 'x'+row.hub">{{(10000*row.hub).toFixed(0)}}<span class="grayspan">/10<sup>5</sup></span></td>            
+                <td class="jobb 'x'+row.rank">{{(10000*row.rank).toFixed(0)}}<span class="grayspan"> * 10<sup>-5</sup></span></td>
+                <td class="jobb 'x'+row.hub">{{(10000*row.hub).toFixed(0)}}<span class="grayspan"> * 10<sup>-5</sup></span></td>            
             </tr>
         </table>
     </div>    

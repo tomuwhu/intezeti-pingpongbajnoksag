@@ -12,17 +12,17 @@
         @click="setview('rank')" 
         :disabled="view==='rank'"
         color="rgb(121, 189, 135)" 
-        vs-type="flat" >Ranglista (PageRank)</vs-button> -  
-      <vs-button 
-        @click="setview('rankh')" 
-        :disabled="view==='rankh'"
-        color="rgb(71, 119, 185)" 
-        vs-type="flat" >Ranglista (HITS)</vs-button> - 
+        vs-type="flat" >PageRank</vs-button> -  
       <vs-button 
         @click="setview('matrix')" 
         :disabled="view==='matrix'"
         color="rgb(251, 119, 185)" 
-        vs-type="flat" >Becsült végkifejlet</vs-button> - 
+        vs-type="flat" >Eredménymátrix</vs-button> -   
+      <vs-button 
+        @click="setview('rankh')" 
+        :disabled="view==='rankh'"
+        color="rgb(71, 129, 255)" 
+        vs-type="flat" >HITS</vs-button> - 
       <vs-button 
         @click="setview('graph')" 
         :disabled="view==='graph'"

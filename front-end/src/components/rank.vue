@@ -11,7 +11,7 @@
             <tr v-for="(row,key) in rank">
                 <td class="bal">{{key+1}}.</td>
                 <td class="bal">{{row.jn}}</td>
-                <td class="jobb">{{(100*row.rank).toFixed(0)}}<span class="grayspan">/100</span></td>
+                <td class="jobb">{{(1000*row.rank).toFixed(0)}}<span class="grayspan"> * 10<sup>-3</sup></span></td>
             </tr>
         </table>
     </div>    
