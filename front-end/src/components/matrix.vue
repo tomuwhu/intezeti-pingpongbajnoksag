@@ -3,10 +3,8 @@
     <h2>Ranglista - <a href="#" @click="def=!def">Eredménymátrix-összeg PageRank alapú becsléssel</a></h2>
     <div v-if="def">
         <br>
-        <pre>
-            A módszer lényege a hagyományos eredménymátrix-alapú számítási módszer kiegészítése azzal, 
-            hogy a le nem játszott meccsek kimenetelét a PageRank pontszám alapján becsli.
-        </pre>    
+            A hagyományos eredménymátrix-alapú számítási módszer kiegészítése azzal, 
+            hogy a le nem játszott meccsek kimenetelét a PageRank pontszám alapján becsli.    
     </div>    
     <table v-if="!def">
         <tr>
@@ -63,7 +61,7 @@ export default {
                 let prankmap = new Map
                 prank.forEach( v=> {
                     prankmap.set(v.un,v.rank)
-                })                 
+                })                              
                 this.meccsek.forEach( v=> {
                     this.matrix.get(v.nyert).set(v.vesztett,-1)
                     this.matrix.get(v.vesztett).set(v.nyert,1)
@@ -75,7 +73,7 @@ export default {
                         .users.forEach( q => {
                             if (!this.matrix.get(p.un).has(q.un)) {
                                 if (p.un!==q.un) {
-                                    this.matrix.get(p.un).set(q.un,prankmap.get(p.un)-prankmap.get(q.un)>0?-0.2:0.2)
+                                    this.matrix.get(p.un).set(q.un,prankmap.get(p.un)-prankmap.get(q.un)>0?-0.5:0.5)
                                 } else     
                                     this.matrix.get(p.un).set(q.un,0)
                             }                            
@@ -86,13 +84,13 @@ export default {
                     ossz = 0
                     this.matrix.get(k).forEach( v => ossz += v)
                     this.rank.set(k,ossz+prankmap.get(k))
-                })
+                })               
                 let rv = []
                 this.rank.forEach( (v,k) => {
                     if (v<min) min = v
                     rv.push({un:k, rank:v})                      
                 })
-                rv = rv.map( v => ({un: v.un, rank: v.rank - min}) )
+                rv = rv.map( v => ({un: v.un, rank: v.rank - min + 0.01}) )
                 rv.forEach( v => {                    
                     if (v.rank) fsum += v.rank
                 })               

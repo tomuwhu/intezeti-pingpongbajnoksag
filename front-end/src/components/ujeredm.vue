@@ -35,9 +35,10 @@
             <td class="seltdr">
                 <div v-if="kivi==='Győztes'">
                     <div class="justify">
-                        Én ({{user.nev}}) győztem, és tudom, hogy a vesztesnek kell felvinnie az eredményt, 
-                        de már többször írtam neki és még mindig nem vitte fel,
-                        pedig tudomásul vette, hogy vesztett, ide a rozsdás bököt!
+                        <span class="redy">Én</span> (<span class="un">{{user.nev}}</span>) <span class="redy">győztem</span>
+                        és tudom, hogy a vesztesnek kellene felvinnie az eredményt, 
+                        de már többször írtam neki és még mindig nem vitte fel.
+                        Pedig tudomásul vette, hogy vesztett. Ide a rozsdás bökőt!
                     </div>
                     <br><br>
                     <div class="center">
@@ -47,9 +48,9 @@
                     </div>
                 </div>
                 <div v-if="kivi==='Vesztes'">
-                    <div class="justify">
-                        Csak próbából nyomtam meg a gombot, kívácsi voltam mit csinál!
-                        Sajna én vesztettem, most visszamennék a <b>győztes</b> megadásához.
+                    <div class="center">
+                        Csak próbából nyomtam meg a gombot, kívácsi voltam mit csinál!<br>
+                        Sajna én vesztettem. Most visszamennék a <b>győztes</b> megadásához.
                     </div>
                     <br><br>
                     <div class="center">
@@ -118,6 +119,12 @@ export default {
 </script>
 
 <style scoped>
+.redy {
+    color: rgb(238, 182, 178)
+}
+.un {
+    color: rgb(178, 238, 229)
+}
 table {
     width:100%
 }
@@ -146,7 +153,7 @@ td.seltdl {
 }
 div.justify {
     text-align: justify;
-    font-size: 12px;
+    font-size: 14px;
     color: white;
     margin-left: 20px;
     margin-right: 20px;

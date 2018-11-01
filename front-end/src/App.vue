@@ -7,32 +7,32 @@
         @click="setview('erlist')" 
         :disabled="view==='erlist'"
         color="rgb(21, 189, 135)" 
-        vs-type="flat" >Eredményeim</vs-button> -
+        vs-type="line" >Eredményeim</vs-button> -
       <vs-button 
         @click="setview('matrix')" 
         :disabled="view==='matrix'"
         color="rgb(251, 119, 185)" 
-        vs-type="flat" >Eredménymátrix</vs-button> -   
+        vs-type="line" >Eredménymátrix</vs-button> -   
       <vs-button 
         @click="setview('rank')" 
         :disabled="view==='rank'"
         color="rgb(121, 189, 135)" 
-        vs-type="flat" >PageRank</vs-button> -    
+        vs-type="line" >PageRank</vs-button> -    
       <vs-button 
         @click="setview('rankh')" 
         :disabled="view==='rankh'"
         color="rgb(71, 129, 255)" 
-        vs-type="flat" >HITS</vs-button> - 
+        vs-type="line" >HITS</vs-button> - 
       <vs-button 
         @click="setview('graph')" 
         :disabled="view==='graph'"
         color="rgb(21, 189, 185)" 
-        vs-type="flat" >Eredménygráf</vs-button> -
+        vs-type="line" >Eredménygráf</vs-button> -
       <vs-button 
         @click="setview('ujeredm')" 
         :disabled="view==='ujeredm'"
         color="rgb(221, 189, 135)" 
-        vs-type="flat" >Új eredmény rögzítése</vs-button>
+        vs-type="line" >Új eredmény rögzítése</vs-button>
       </div>
       <hr><br>
       <erlist  :username="un" v-if="view==='erlist'" />
