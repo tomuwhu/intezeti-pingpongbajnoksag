@@ -102,6 +102,7 @@ td.kulso {
     box-shadow: 0px 0px 2px white; 
 }
 table.belso {
+    font-size: 13px;
     margin: 0 auto;
     border-spacing: 4px;
     border-collapse: separate;
@@ -139,5 +140,11 @@ h2 {
     background: rgb(204, 204, 199);
     box-shadow: 1px 1px 7px rgb(255, 255, 255);
     text-shadow: 1px 1px 5px rgb(109, 107, 107);
+}
+h3 {
+    text-shadow: 0px 0px 4px rgb(85, 85, 85);
+    box-shadow: 0px 0px 4px white;
+    padding: 7px;
+    border-radius: 5px;
 }
 </style>

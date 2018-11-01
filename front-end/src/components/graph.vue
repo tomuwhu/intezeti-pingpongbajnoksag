@@ -64,12 +64,14 @@ function drawgraph(p1, p2) {
 let ul = new Map
 export default {
   name: 'graph',
+  props: ['type'],
   data: ()=>({
 
   }),
   mounted: () => {
      axios
-        .get('http://localhost:3000/getgraphdata')
+        .get('http://localhost:3000/getalldata')
+        //.get('http://localhost:3000/getgraphdata')
         .then( resp => {
             edges = []
             resp.data.meccsek.forEach( v=> {
