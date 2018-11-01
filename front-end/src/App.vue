@@ -9,15 +9,15 @@
         color="rgb(21, 189, 135)" 
         vs-type="flat" >Eredményeim</vs-button> -
       <vs-button 
-        @click="setview('rank')" 
-        :disabled="view==='rank'"
-        color="rgb(121, 189, 135)" 
-        vs-type="flat" >PageRank</vs-button> -  
-      <vs-button 
         @click="setview('matrix')" 
         :disabled="view==='matrix'"
         color="rgb(251, 119, 185)" 
         vs-type="flat" >Eredménymátrix</vs-button> -   
+      <vs-button 
+        @click="setview('rank')" 
+        :disabled="view==='rank'"
+        color="rgb(121, 189, 135)" 
+        vs-type="flat" >PageRank</vs-button> -    
       <vs-button 
         @click="setview('rankh')" 
         :disabled="view==='rankh'"

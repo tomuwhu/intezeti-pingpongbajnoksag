@@ -1,6 +1,6 @@
 <template>
   <div class="center">
-    <h2>Ranglista - <a href="https://hu.wikipedia.org/wiki/HITS" target="_blank">HITS</a></h2>
+    <h2>A <a href="https://hu.wikipedia.org/wiki/HITS" target="_blank">HITS</a> algoritmus eredménye</h2>
     <div class="center">
         <table>
             <tr>
