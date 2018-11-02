@@ -65,12 +65,6 @@ let ul = new Map
 export default {
   name: 'graph',
   props: ['type'],
-  data: ()=>({
-    
-  }),
-  methods: {
-    
-  },
   mounted() {
     axios
       .get('http://localhost:3000/get'+this.type+'data')
