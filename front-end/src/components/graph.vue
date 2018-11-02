@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2>Eredménygráf</h2> 
+    <h2>Eredménygráf ({{type}})</h2> 
     <br>
-    <div id="mynetwork"></div>
+    <div id="mynetwork"></div>  
   </div>
 </template>
 
@@ -66,28 +66,30 @@ export default {
   name: 'graph',
   props: ['type'],
   data: ()=>({
-
+    
   }),
-  mounted: () => {
-     axios
-        .get('http://localhost:3000/getalldata')
-        //.get('http://localhost:3000/getgraphdata')
-        .then( resp => {
-            edges = []
-            resp.data.meccsek.forEach( v=> {
-                ul.set(v.vesztett,true)
-                ul.set(v.nyert,true)
-                edges.push({ from: v.nyert, to: v.vesztett })
-            })
-            nodes = []
-            resp.data.users.forEach( v=> {
-                if (ul.has(v.un)) {
-                    nodes.push( {  id: v.un, label: v.nev } )
-                }  
-            })
-            drawgraph(nodes, edges)
-        })
-        .catch( err => console.log(err))  
+  methods: {
+    
+  },
+  mounted() {
+    axios
+      .get('http://localhost:3000/get'+this.type+'data')
+      .then( resp => {
+          edges = []
+          resp.data.meccsek.forEach( v=> {
+              ul.set(v.vesztett,true)
+              ul.set(v.nyert,true)
+              edges.push({ from: v.nyert, to: v.vesztett })
+          })
+          nodes = []
+          resp.data.users.forEach( v=> {
+              if (ul.has(v.un)) {
+                  nodes.push( {  id: v.un, label: v.nev } )
+              }  
+          })
+          drawgraph(nodes, edges)
+      })
+      .catch( err => console.log(err))  
   }
 }
 </script>

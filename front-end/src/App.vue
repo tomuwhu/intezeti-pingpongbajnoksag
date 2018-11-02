@@ -40,7 +40,8 @@
       <rankh   :username="un" v-if="view==='rankh'" />
       <matrix  :username="un" v-if="view==='matrix'" />      
       <ujeredm :username="un" v-if="view==='ujeredm'"/>
-      <graph   type="'all"    v-if="view==='graph'"/>
+      <graph   type="graph"   v-if="view==='graph'"/>
+      <graph   type="all"     v-if="view==='graph2'"/>
   </div>
 </template>
 
