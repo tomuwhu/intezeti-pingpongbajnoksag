@@ -1,9 +1,14 @@
 <template  lang="html">
   <div id="app">
-      <vs-button id="signin-button" v-on:click="signIn" v-if='!knev'>
-        <i class="fa fa-google-plus-official fa-3x"></i>
-        Sign in with Google
-      </vs-button>
+      <div>
+        <br v-if='!knev'>
+        <br>
+        <br>
+        <vs-button id="signin-button" v-on:click="signIn">
+          <i class="fa fa-google-plus-official fa-3x"></i>
+          Bejelentkezés Google-vel
+        </vs-button>
+      </div>
       <div v-if="knev && utype">
         <h3 id="h3">Kedves <b>{{knev}}</b>, üdvözöllek az intézeti pingpong-bajonokságban!</h3>
         <hr>

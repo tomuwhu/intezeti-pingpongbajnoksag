@@ -115,6 +115,16 @@ app.get(/getgraphdata/, (req, res) => {
     )
 })
 
+app.post('/newreg', (req, res) => {
+    sql.query(
+        `INSERT INTO user (un, nev, knev) VALUES ('${req.body.un}','${req.body.name}','${req.body.knev}')`,
+        (err, accept) => {
+            res.send(accept)
+        }
+    )
+})
+
+
 app.use('/', express.static(static_folder))
 
 
