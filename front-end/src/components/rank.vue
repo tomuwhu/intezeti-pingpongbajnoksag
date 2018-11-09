@@ -34,7 +34,7 @@ export default {
   methods: {
       adatleker() {
         axios
-            .get('http://localhost:3000/getalldata')
+            .get('http://www.inf.u-szeged.hu/u/tnemeth_2/getalldata')
             .then( resp => {
                 this.meccsek = resp .data
                                     .meccsek

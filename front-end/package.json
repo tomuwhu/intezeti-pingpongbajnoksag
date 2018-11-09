@@ -8,12 +8,15 @@
   },
   "dependencies": {
     "@dagrejs/graphlib": "^2.1.4",
+    "gapi": "0.0.3",
     "material-icons": "^0.2.3",
+    "module": "^1.2.5",
     "ngraph.graph": "0.0.14",
     "ngraph.hits": "^0.1.1",
     "ngraph.pagerank": "^0.1.4",
     "vis": "^4.21.0",
     "vue": "^2.5.17",
+    "vue-google-authenticator": "^1.0.3",
     "vuesax": "^3.4.7",
     "vuex": "^3.0.1"
   },

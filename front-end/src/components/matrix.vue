@@ -40,7 +40,7 @@ export default {
   methods: {
       adatleker() {
         axios
-            .get('http://localhost:3000/getgraphdata')
+            .get('http://www.inf.u-szeged.hu/u/tnemeth_2/getgraphdata')
             .then( resp => {
                 this.meccsek = resp .data
                                     .meccsek

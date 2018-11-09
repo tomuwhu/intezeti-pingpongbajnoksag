@@ -93,7 +93,7 @@ export default {
             tosend = { nyert: this.username, vesztett: this.selecteduser, mikor: this.ma}
         }    
         axios
-            .post('http://localhost:3000/postdata',tosend)
+            .post('http://www.inf.u-szeged.hu/u/tnemeth_2/postdata',tosend)
             .then( resp => {
                 if (resp.data.affectedRows) {
                     this.$store.state.view = 'erlist'
@@ -103,7 +103,7 @@ export default {
       },
       adatleker() {
         axios
-            .get('http://localhost:3000/getuserdata')
+            .get('http://www.inf.u-szeged.hu/u/tnemeth_2/getuserdata')
             .then( resp => {
                 this.user=resp.data.users.filter( v => v.un===this.username )[0]
                 this.userlist = resp.data.users.filter( v => v.un!==this.username )              

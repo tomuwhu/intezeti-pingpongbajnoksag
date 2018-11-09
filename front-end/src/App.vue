@@ -1,46 +1,60 @@
 <template  lang="html">
   <div id="app">
-      <h3 id="h3">Kedves <b>{{knev}}</b>, üdvözöllek az intézeti pingpong-bajonokságban!</h3>
-      <hr>
-      <div class="left">
-      <vs-button 
-        @click="setview('erlist')" 
-        :disabled="view==='erlist'"
-        color="rgb(21, 189, 135)" 
-        vs-type="line" >Eredményeim</vs-button> -
-      <vs-button 
-        @click="setview('matrix')" 
-        :disabled="view==='matrix'"
-        color="rgb(251, 119, 185)" 
-        vs-type="line" >Eredménymátrix</vs-button> -   
-      <vs-button 
-        @click="setview('rank')" 
-        :disabled="view==='rank'"
-        color="rgb(121, 189, 135)" 
-        vs-type="line" >PageRank</vs-button> -    
-      <vs-button 
-        @click="setview('rankh')" 
-        :disabled="view==='rankh'"
-        color="rgb(71, 129, 255)" 
-        vs-type="line" >HITS</vs-button> - 
-      <vs-button 
-        @click="setview('graph')" 
-        :disabled="view==='graph'"
-        color="rgb(21, 189, 185)" 
-        vs-type="line" >Eredménygráf</vs-button> -
-      <vs-button 
-        @click="setview('ujeredm')" 
-        :disabled="view==='ujeredm'"
-        color="rgb(221, 189, 135)" 
-        vs-type="line" >Új eredmény rögzítése</vs-button>
+      <vs-button id="signin-button" v-on:click="signIn" v-if='!knev'>
+        <i class="fa fa-google-plus-official fa-3x"></i>
+        Sign in with Google
+      </vs-button>
+      <div v-if="knev && utype">
+        <h3 id="h3">Kedves <b>{{knev}}</b>, üdvözöllek az intézeti pingpong-bajonokságban!</h3>
+        <hr>
+        <div class="left">
+        <vs-button 
+          v-if="knev"
+          @click="setview('erlist')" 
+          :disabled="view==='erlist'"
+          color="rgb(21, 189, 135)" 
+          vs-type="line">Eredményeim</vs-button>
+        <!--vs-button 
+          @click="setview('matrix')" 
+          :disabled="view==='matrix'"
+          color="rgb(251, 119, 185)" 
+          vs-type="line" >Eredménymátrix</vs-button-->
+        <vs-button 
+          @click="setview('rank')" 
+          :disabled="view==='rank'"
+          color="rgb(121, 189, 135)" 
+          vs-type="line" >PageRank</vs-button>   
+        <!--vs-button 
+          @click="setview('rankh')" 
+          :disabled="view==='rankh'"
+          color="rgb(71, 129, 255)" 
+          vs-type="line" >HITS</vs-button--> 
+        <vs-button 
+          @click="setview('graph')" 
+          :disabled="view==='graph'"
+          color="rgb(21, 189, 185)" 
+          vs-type="line" >Eredménygráf</vs-button>
+        <vs-button 
+          v-if="knev && utype==='player'"
+          @click="setview('ujeredm')" 
+          :disabled="view==='ujeredm'"
+          color="rgb(221, 189, 135)" 
+          vs-type="line" >Új eredmény rögzítése</vs-button>
+        </div>
+        <hr><br>
+        <div v-if="knev && view==='erlist' && utype==='sp'">
+          Igen intézeti dolgozó vegyok és szeretnék indulni az intézeti pingp-pong bajnokságon.<br>
+          Vállalom, hogy átlagosan havonta egy-két meccset lejátszom!<br><br>
+          <vs-button @click="reg()">Regisztálok</vs-button>
+          <br><br>
+        </div>  
+        <erlist  :username="un" v-if="view==='erlist' && utype==='player'" />
+        <rank    :username="un" v-if="view==='rank'" />
+        <rankh   :username="un" v-if="view==='rankh'" />
+        <matrix  :username="un" v-if="view==='matrix'" />      
+        <ujeredm :username="un" v-if="view==='ujeredm' && utype==='player'"/>
+        <graph   type="graph"   v-if="view==='graph'"/>
       </div>
-      <hr><br>
-      <erlist  :username="un" v-if="view==='erlist'" />
-      <rank    :username="un" v-if="view==='rank'" />
-      <rankh   :username="un" v-if="view==='rankh'" />
-      <matrix  :username="un" v-if="view==='matrix'" />      
-      <ujeredm :username="un" v-if="view==='ujeredm'"/>
-      <graph   type="graph"   v-if="view==='graph'"/>
   </div>
 </template>
 
@@ -51,23 +65,59 @@ import rankh from './components/rankh.vue'
 import matrix from './components/matrix.vue'
 import graph from './components/graph.vue'
 import ujeredm from './components/ujeredm.vue'
+import axios from 'axios'
+import Vue from 'vue'
+
 export default {
   name: 'app',
   components: { erlist, rank, rankh, matrix, graph, ujeredm },
   data: ()=>({
-      knev: 'Tamás',
-      name: 'Németh Tamás',
-      un:   'tnemeth'
+      knev: '',
+      name: '',
+      un:   '',
+      utype:''
   }),
   methods: {
     setview(x) {
       this.$store.state.view = x
+    },
+    signIn() {
+      Vue.googleAuth().directAccess()
+      Vue.googleAuth().signIn( 
+        user => {
+          this.un = user.w3.U3.split('@')[0]
+          this.name = user.w3.wea + " " + user.w3.ofa
+          this.knev = user.w3.ofa
+          axios
+            .get('http://www.inf.u-szeged.hu/u/tnemeth_2/getalldata')
+            .then( resp => {
+              let ru = resp .data
+                            .users
+                            .find( v => v.un===this.un)
+              if (ru) this.utype='player'
+              else this.utype='sp'
+            } )
+          //console.log( 'Kép:', user.w3.Paa )
+        },
+        reject => console.log( reject )
+      )
+    },
+    reg() {
+        axios
+        .post('http://www.inf.u-szeged.hu/u/tnemeth_2/newreg',{un: this.un, knev:this.knev, name: this.name})
+        .then( resp => {
+          console.log(resp.data);
+          this.utype='player'
+        } )
     }
   },
   computed: {
     view() {
       return this.$store.state.view
     }
+  },
+  mounted() {
+    
   }
 }
 </script>
@@ -95,5 +145,8 @@ body {
 div.left {
   text-align: left;
   color:white;
+}
+#signin-button {
+
 }
 </style>

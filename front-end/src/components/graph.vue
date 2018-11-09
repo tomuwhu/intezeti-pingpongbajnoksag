@@ -67,7 +67,7 @@ export default {
   props: ['type'],
   mounted() {
     axios
-      .get('http://localhost:3000/get'+this.type+'data')
+      .get('http://www.inf.u-szeged.hu/u/tnemeth_2/get'+this.type+'data')
       .then( resp => {
           edges = []
           resp.data.meccsek.forEach( v=> {
