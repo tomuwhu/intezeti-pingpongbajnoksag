@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "@dagrejs/graphlib": "^2.1.4",
-    "gapi": "0.0.3",
     "material-icons": "^0.2.3",
     "module": "^1.2.5",
     "ngraph.graph": "0.0.14",

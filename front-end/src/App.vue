@@ -1,51 +1,57 @@
 <template  lang="html">
   <div id="app">
-      <div>
-        <br v-if='!knev'>
+      <div v-if='!knev'>
+        <br>
         <br>
         <br>
         <vs-button id="signin-button" v-on:click="signIn">
           <i class="fa fa-google-plus-official fa-3x"></i>
-          Bejelentkezés Google-vel
+          Bejelentkezés Google-lal
         </vs-button>
       </div>
       <div v-if="knev && utype">
         <h3 id="h3">Kedves <b>{{knev}}</b>, üdvözöllek az intézeti pingpong-bajonokságban!</h3>
         <hr>
         <div class="left">
-        <vs-button 
-          v-if="knev"
-          @click="setview('erlist')" 
-          :disabled="view==='erlist'"
-          color="rgb(21, 189, 135)" 
-          vs-type="line">Eredményeim</vs-button>
-        <!--vs-button 
-          @click="setview('matrix')" 
-          :disabled="view==='matrix'"
-          color="rgb(251, 119, 185)" 
-          vs-type="line" >Eredménymátrix</vs-button-->
-        <vs-button 
-          @click="setview('rank')" 
-          :disabled="view==='rank'"
-          color="rgb(121, 189, 135)" 
-          vs-type="line" >PageRank</vs-button>   
-        <!--vs-button 
-          @click="setview('rankh')" 
-          :disabled="view==='rankh'"
-          color="rgb(71, 129, 255)" 
-          vs-type="line" >HITS</vs-button--> 
-        <vs-button 
-          @click="setview('graph')" 
-          :disabled="view==='graph'"
-          color="rgb(21, 189, 185)" 
-          vs-type="line" >Eredménygráf</vs-button>
-        <vs-button 
-          v-if="knev && utype==='player'"
-          @click="setview('ujeredm')" 
-          :disabled="view==='ujeredm'"
-          color="rgb(221, 189, 135)" 
-          vs-type="line" >Új eredmény rögzítése</vs-button>
+          <vs-button 
+            v-if="knev"
+            @click="setview('erlist')" 
+            :disabled="view==='erlist'"
+            color="rgb(21, 189, 135)" 
+            vs-type="line">Eredményeid</vs-button>
+          <!--vs-button 
+            @click="setview('matrix')" 
+            :disabled="view==='matrix'"
+            color="rgb(251, 119, 185)" 
+            vs-type="line" >Eredménymátrix</vs-button-->
+          <vs-button 
+            @click="setview('rank')" 
+            :disabled="view==='rank'"
+            color="rgb(121, 189, 135)" 
+            vs-type="line" >PageRank</vs-button>   
+          <!--vs-button 
+            @click="setview('rankh')" 
+            :disabled="view==='rankh'"
+            color="rgb(71, 129, 255)" 
+            vs-type="line" >HITS</vs-button--> 
+          <vs-button 
+            @click="setview('graph')" 
+            :disabled="view==='graph'"
+            color="rgb(21, 189, 185)" 
+            vs-type="line" >Eredménygráf</vs-button>
+          <vs-button 
+            v-if="knev && utype==='player'"
+            @click="setview('ujeredm')" 
+            :disabled="view==='ujeredm'"
+            color="rgb(221, 189, 135)" 
+            vs-type="line" >Új eredmény rögzítése</vs-button>
+          <vs-button 
+            v-if="knev"
+            @click="logout()" 
+            color="rgb(255, 110, 110)" 
+            vs-type="line" >Kijelentkezés</vs-button>
         </div>
+
         <hr><br>
         <div v-if="knev && view==='erlist' && utype==='sp'">
           Igen intézeti dolgozó vegyok és szeretnék indulni az intézeti pingp-pong bajnokságon.<br>
@@ -101,11 +107,24 @@ export default {
                             .find( v => v.un===this.un)
               if (ru) this.utype='player'
               else this.utype='sp'
+              localStorage.setItem('un',this.un)
+              localStorage.setItem('name',this.name)
+              localStorage.setItem('knev',this.knev)
+              localStorage.setItem('utype',this.utype)
             } )
           //console.log( 'Kép:', user.w3.Paa )
         },
         reject => console.log( reject )
       )
+    },
+    logout() {
+      localStorage.removeItem('un')
+      localStorage.removeItem('name')
+      localStorage.removeItem('knev')
+      localStorage.removeItem('utype')
+      this.un=''
+      this.utype=''
+      this.knev=''
     },
     reg() {
         axios
@@ -122,7 +141,13 @@ export default {
     }
   },
   mounted() {
-    
+    let un
+    if (un = localStorage.getItem('un')) {
+      this.un=un
+      this.name=localStorage.getItem('name')
+      this.knev=localStorage.getItem('knev')
+      this.utype=localStorage.getItem('utype')
+    }  
   }
 }
 </script>
