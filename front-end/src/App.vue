@@ -66,6 +66,18 @@
         <ujeredm :username="un" v-if="view==='ujeredm' && utype==='player'"/>
         <graph   type="graph"   v-if="view==='graph'"/>
       </div>
+      <div class="ghlink">
+        <br>
+        <a href='https://github.com/tomuwhu/intezeti-pingpongbajnoksag' 
+           target='blank'
+           class='ghl'>
+          <img 
+            class="ghi"
+            alt="Forrás a GitHub-on" 
+            src='./assets/ghm.png' 
+            title='Forrás a GitHub-on' />
+        </a>
+      </div>  
   </div>
 </template>
 
@@ -176,7 +188,27 @@ div.left {
   text-align: left;
   color:white;
 }
-#signin-button {
-
+div.ghlink {
+  text-align: center;
+}
+a.ghl {
+  color: rgb(82, 119, 99)
+}
+a.ghl:hover {
+  color: rgb(133, 173, 152)
+}
+a.ghl:active {
+  color: rgb(97, 136, 115)
+}
+a.ghl:visited {
+  color: rgb(50, 75, 61)
+}
+img.ghi {
+  -webkit-filter: drop-shadow(1px 1px 4px white );
+  filter: drop-shadow(1px 1px 4px white );
+}
+img.ghi:hover {
+  -webkit-filter: drop-shadow(1px 1px 8px white );
+  filter: drop-shadow(1px 1px 8px white );
 }
 </style>

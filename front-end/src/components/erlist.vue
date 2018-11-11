@@ -127,9 +127,11 @@ td.jobb {
     box-shadow:0px 0px 3px white;
 }
 td.nyert, th.nyert {
+    width: 50%;
     color:rgb(142, 233, 202);
 }
 td.vesztett, th.vesztett {
+    width: 50%;
     color:rgb(233, 156, 142);
 }
 h2 {
